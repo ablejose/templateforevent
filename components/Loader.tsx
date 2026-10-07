@@ -125,19 +125,27 @@ export default function Loader() {
         </div>
 
         {/* Name, letter by letter */}
-        <p className="mt-8 flex overflow-hidden" aria-hidden>
-          {letters.map((ch, i) => (
-            <motion.span
-              key={i}
-              className="display-xl inline-block text-ivory"
-              style={{ fontSize: "clamp(2.6rem, 7vw, 4.4rem)", lineHeight: 1.08 }}
-              initial={{ y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 0.9, delay: 0.45 + i * 0.07, ease: EASE }}
-            >
-              {ch === " " ? " " : ch}
-            </motion.span>
-          ))}
+        {/* Words wrap as whole words on long names; letters within each word still rise one by one. */}
+        <p className="mt-8 flex max-w-[92vw] flex-wrap justify-center gap-x-[0.3em]" aria-hidden>
+          {site.name.split(/\s+/).map((word, w, words) => {
+            const offset = words.slice(0, w).join("").length;
+            return (
+              <span key={w} className="flex overflow-hidden">
+                {Array.from(word).map((ch, i) => (
+                  <motion.span
+                    key={i}
+                    className="display-xl inline-block text-ivory"
+                    style={{ fontSize: letters.length > 14 ? "clamp(1.8rem, 5vw, 3rem)" : "clamp(2.6rem, 7vw, 4.4rem)", lineHeight: 1.08 }}
+                    initial={{ y: "110%" }}
+                    animate={{ y: "0%" }}
+                    transition={{ duration: 0.9, delay: 0.45 + Math.min(offset + i, 20) * 0.05, ease: EASE }}
+                  >
+                    {ch}
+                  </motion.span>
+                ))}
+              </span>
+            );
+          })}
         </p>
 
         <motion.p

@@ -12,7 +12,8 @@ const POINT_ICONS = [Clock, Truck, MapPin];
 
 export default function About() {
   const points = [
-    { icon: Star, text: `${site.rating.toFixed(1)}\u2605 on Google (${site.reviews} reviews)` },
+    // Only claim a rating when there is one.
+    ...(site.reviews ? [{ icon: Star, text: `${site.rating.toFixed(1)}\u2605 on Google (${site.reviews} reviews)` }] : []),
     ...withoutDelivery(tAll(copy.about.points)).map((text, i) => ({ icon: POINT_ICONS[i % POINT_ICONS.length], text })),
   ];
 
@@ -50,14 +51,16 @@ export default function About() {
                 </li>
               ))}
             </ul>
-            <a
-              href={site.mapsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-underline mt-6 inline-flex items-center gap-2 font-sans text-sm font-medium text-espresso"
-            >
-              <Star size={15} className="fill-saffron text-saffron" /> {t(copy.about.reviewsLink)}
-            </a>
+            {site.reviews > 0 && (
+              <a
+                href={site.mapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline mt-6 inline-flex items-center gap-2 font-sans text-sm font-medium text-espresso"
+              >
+                <Star size={15} className="fill-saffron text-saffron" /> {t(copy.about.reviewsLink)}
+              </a>
+            )}
           </div>
         </Reveal>
 

@@ -43,7 +43,9 @@ export const jsonLd = {
     postalCode: event.location.postalCode,
     addressCountry: event.location.country,
   },
-  geo: { "@type": "GeoCoordinates", latitude: event.location.geo.lat, longitude: event.location.geo.lng },
+  geo: event.location.geo
+    ? { "@type": "GeoCoordinates", latitude: event.location.geo.lat, longitude: event.location.geo.lng }
+    : undefined,
   hasMap: site.mapsLink,
   areaServed: site.serviceAreas.map((a) => ({ "@type": "City", name: a })),
   sameAs: [event.web.instagram, event.web.facebook, event.web.youtube].filter(Boolean),
@@ -53,11 +55,9 @@ export const jsonLd = {
     opens: event.location.opens ?? "09:00",
     closes: event.location.closes ?? "21:00",
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: site.rating.toFixed(1),
-    reviewCount: String(site.reviews),
-  },
+  aggregateRating: site.reviews
+    ? { "@type": "AggregateRating", ratingValue: site.rating.toFixed(1), reviewCount: String(site.reviews) }
+    : undefined,
   makesOffer: services.map((sv) => ({
     "@type": "Offer",
     itemOffered: { "@type": "Service", name: sv.title, description: sv.blurb },

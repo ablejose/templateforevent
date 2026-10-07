@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "sitegen": "node scripts/sitegen.mjs"
   },
   "dependencies": {
     "next": "14.2.35",

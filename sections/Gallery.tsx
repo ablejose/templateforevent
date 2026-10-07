@@ -21,6 +21,7 @@ export default function Gallery() {
   const [all, setAll] = useState(false);
   const shown = all ? galleryImages : galleryImages.slice(0, INITIAL);
   const more = galleryImages.length - INITIAL;
+  if (galleryImages.length === 0) return null;
 
   return (
     <section id="gallery" aria-labelledby="gallery-heading" className="bg-cream py-16 md:py-24">

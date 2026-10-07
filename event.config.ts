@@ -17,8 +17,18 @@
  *   madeena  -> events/madeena.config.ts  (Madeena Catering, Perintalmanna)
  *   agnel    -> events/agnel.config.ts    (Agnel Caters & Events, Changanassery)
  */
+import type { EventConfig } from "@/config/event-schema";
 import { agnel } from "@/events/agnel.config";
+import { fromBusiness, type BusinessInput } from "@/events/from-business";
+import active from "@/events/active.json";
 
-export const event = agnel;
+/**
+ * Bulk sites: `scripts/sitegen.mjs` writes one business into events/active.json
+ * before each build. When it's `null` (the default, committed state) the site
+ * builds the hand-made event below.
+ */
+const generated = active as unknown as BusinessInput | null;
+
+export const event: EventConfig = generated ? fromBusiness(generated) : agnel;
 
 export default event;

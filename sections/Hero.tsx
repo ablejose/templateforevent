@@ -134,7 +134,14 @@ export default function Hero() {
           {t(copy.hero.eyebrow)}
         </p>
         <h1 className="mt-4 flex flex-col items-center">
-          <span className="display-xl text-ivory" style={{ fontSize: "clamp(3.4rem, 9vw, 7rem)", textShadow: "0 4px 40px rgba(0,0,0,0.35)" }}>
+          <span
+            className="display-xl text-ivory"
+            style={{
+              // Long names (generated sites) step down so they stay on one or two lines.
+              fontSize: site.name.length > 18 ? "clamp(2.2rem, 5.5vw, 4.4rem)" : site.name.length > 10 ? "clamp(2.8rem, 7vw, 5.6rem)" : "clamp(3.4rem, 9vw, 7rem)",
+              textShadow: "0 4px 40px rgba(0,0,0,0.35)",
+            }}
+          >
             {site.name}
           </span>
           <span

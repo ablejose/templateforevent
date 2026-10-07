@@ -13,6 +13,12 @@ export const event = madeena;
 ```
 
 Full instructions: **[EVENT-SETUP.md](./EVENT-SETUP.md)**
+
+## One site per row of the business sheet
+
+`npm run sitegen -- --sheet "<google sheet url>"` builds and deploys a site for
+every business (their details + their Google photos in the gallery; everything
+else from the template). See **[SITEGEN.md](./SITEGEN.md)**.
 Keeping each build feeling custom: **[IMPROVEMENT-PLAN.md](./IMPROVEMENT-PLAN.md)**
 
 Live demo (dummy data): https://event-template-demo.vercel.app

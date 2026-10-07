@@ -64,7 +64,7 @@ export const withoutDelivery = (list: string[]) =>
   site.delivery ? list : list.filter((s) => s !== templateCopy.trustBar.deliveryLabel);
 
 /** Stock hero slides shared by every site that sets no `media.heroSlides`. */
-const TEMPLATE_HERO_SLIDES = ["/template/hero/01.webp", "/template/hero/03.webp", "/template/hero/04.webp"];
+const TEMPLATE_HERO_SLIDES = ["/template/hero/03.webp", "/template/hero/01.webp"];
 
 const slide = (e: GalleryEntry, i: number) =>
   typeof e === "string"
@@ -83,7 +83,10 @@ export const waLink = (text: string = DEFAULT_WA_MESSAGE) =>
 
 export const telLink = `tel:${site.phone.replace(/[^\d+]/g, "")}`;
 
-export const navLinks = templateCopy.nav;
+/** Nav, minus links to sections this event doesn't render (no photos / no reviews). */
+export const navLinks = templateCopy.nav.filter(
+  (l) => !(l.href === "#gallery" && event.media.gallery.length === 0) && !(l.href === "#testimonials" && event.reviews.length === 0)
+);
 
 /** Brand icon + share image paths for this event. */
 export const brandAssets = {

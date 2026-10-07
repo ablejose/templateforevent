@@ -124,7 +124,8 @@ export interface EventConfig {
     country: string;
     /** Towns served, used in footer + schema.org areaServed. */
     serviceAreas: string[];
-    geo: { lat: number; lng: number };
+    /** Map pin. Optional for generated sites where Places has no match. */
+    geo?: { lat: number; lng: number };
     /** Share link to the Google Business Profile / Maps pin. */
     mapsLink: string;
     /** Embeddable maps URL (output=embed). */
